@@ -562,7 +562,9 @@ AddEventHandler("Blackjack:beginCardGiveOut",function(gameId,cardData,chairId,ca
             dealersHand = gotCurrentHand
             blackjackInstructional = nil
         end
-        dealerSecondCardFromGameId[gameId] = cardObj
+        if gameId == chairId and cardIndex == 1 then
+            dealerSecondCardFromGameId[gameId] = cardObj
+        end
         if chairId == closestChair and gameId ~= chairId then
             currentHand = gotCurrentHand
             blackjackInstructional = nil
@@ -896,6 +898,9 @@ function startDealing(dealerPed,gameId,cardData,chairId,cardIndex,gotCurrentHand
             SetEntityRotation(nextCardObj, cardObjectOffsetRotation.x, cardObjectOffsetRotation.y, cardObjectOffsetRotation.z, 2, 1)
         else 
             cardObjectOffsetRotation = blackjack_func_398(blackjack_func_368(fakeChairIdForDealerTurn))
+            if cardIndex == 1 then
+                cardObjectOffsetRotation.x = cardObjectOffsetRotation.x + 180.0
+            end
         end
         --print("checking betttingInstructional",closestChair,chairId)
         if closestChair == chairId and sittingAtBlackjackTable then
@@ -964,7 +969,9 @@ function flipDealerCard(dealerPed,gotCurrentHand,tableId,gameId)
     end    
     local soundCardString = "MINIGAME_BJACK_DEALER_" .. tostring(gotCurrentHand)
     PlayAmbientSpeech1(dealerPed,soundCardString,"SPEECH_PARAMS_FORCE_NORMAL_CLEAR",1)
+    local cardRotation = GetEntityRotation(cardObj)
     SetEntityCoordsNoOffset(cardObj, cardX,cardY,cardZ)
+    SetEntityRotation(cardObj, cardRotation.x - 180.0, cardRotation.y, cardRotation.z, 2, 1)
 end
 
 function checkCard(dealerPed,cardObj)

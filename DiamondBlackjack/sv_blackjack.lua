@@ -199,12 +199,10 @@ for i=0,31,1 do
                             if blackjackGameData[gameId]["dealer"]["cardData"] == nil then 
                                 blackjackGameData[gameId]["dealer"]["cardData"] = {}
                             end
-                            if cardIndex == 0 then
-                                local randomCard = math.random(1,52)
-                                --print("randomDealerCard: " .. tostring(randomCard))
-                                table.insert(blackjackGameData[gameId]["dealer"]["cardData"], randomCard) 
-                                TriggerClientEvent("Blackjack:beginCardGiveOut",-1,gameId,blackjackGameData[gameId]["dealer"]["cardData"],gameId,cardIndex,getCurrentHand(gameId,"dealer"),tableId)
-                            end
+                            local randomCard = math.random(1,52)
+                            --print("randomDealerCard: " .. tostring(randomCard))
+                            table.insert(blackjackGameData[gameId]["dealer"]["cardData"], randomCard)
+                            TriggerClientEvent("Blackjack:beginCardGiveOut",-1,gameId,blackjackGameData[gameId]["dealer"]["cardData"],gameId,cardIndex,getCurrentHand(gameId,"dealer"),tableId)
                             Wait(1500) --Wait between each initial give out card 
                         end
                         --Wait(6000) --Wait for dealer to check own card
@@ -277,11 +275,6 @@ for i=0,31,1 do
                                 TriggerClientEvent("Blackjack:endStandOrHitPhase",-1,chairID,tableId) 
                             end
                         end
-                        local randomCard = math.random(1,52)
-                        --print("randomDealerCard: " .. tostring(randomCard))
-                        table.insert(blackjackGameData[gameId]["dealer"]["cardData"], randomCard) 
-                        TriggerClientEvent("Blackjack:beginCardGiveOut",-1,gameId,blackjackGameData[gameId]["dealer"]["cardData"],gameId,1,getCurrentHand(gameId,"dealer"),tableId)
-                        Wait(2800)
                         dealerHand = getCurrentHand(gameId,"dealer")
                         TriggerClientEvent("Blackjack:flipDealerCard",-1,dealerHand,tableId,gameId)
                         Wait(2800)
