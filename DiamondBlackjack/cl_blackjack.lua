@@ -969,9 +969,9 @@ function flipDealerCard(dealerPed,gotCurrentHand,tableId,gameId)
     end    
     local soundCardString = "MINIGAME_BJACK_DEALER_" .. tostring(gotCurrentHand)
     PlayAmbientSpeech1(dealerPed,soundCardString,"SPEECH_PARAMS_FORCE_NORMAL_CLEAR",1)
-    local cardRotation = GetEntityRotation(cardObj)
     SetEntityCoordsNoOffset(cardObj, cardX,cardY,cardZ)
-    SetEntityRotation(cardObj, cardRotation.x - 180.0, cardRotation.y, cardRotation.z, 2, 1)
+    local cardRotation = blackjack_func_398(tableId)
+    SetEntityRotation(cardObj, cardRotation.x, cardRotation.y, cardRotation.z, 2, 1)
 end
 
 function checkCard(dealerPed,cardObj)
